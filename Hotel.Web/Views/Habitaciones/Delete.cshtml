@@ -1,0 +1,24 @@
+@model Habitacion
+@{
+    ViewData["Title"] = "Eliminar habitación";
+}
+
+<div class="pagina">
+    <header class="cabecera">
+        <div>
+            <p class="etiqueta">Habitación @Model.Numero</p>
+            <h1>Eliminar habitación</h1>
+        </div>
+    </header>
+
+    <div class="confirmar">
+        <p>¿Desea eliminar la habitación <strong>@Model.Numero</strong> (@Model.IdTipoHabitacionNavigation.Nombre, piso @Model.Piso)? Dejará de aparecer en los listados.</p>
+
+        <form asp-action="Delete" asp-route-id="@Model.IdHabitacion">
+            <div class="botones">
+                <button class="boton">Eliminar</button>
+                <a class="vinculo" asp-action="Index">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

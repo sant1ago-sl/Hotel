@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Casa Olivar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    @{
+        var controlador = ViewContext.RouteData.Values["controller"]?.ToString();
+        var accion = ViewContext.RouteData.Values["action"]?.ToString();
+    }
+    <header class="encabezado">
+        <div class="contenedor">
+            <a class="marca" asp-controller="Home" asp-action="Index">Casa Olivar</a>
+            <nav>
+                <ul class="menu">
+                    <li><a asp-controller="Habitaciones" asp-action="Index" class="@(controlador == "Habitaciones" ? "activo" : "")">Habitaciones</a></li>
+                    <li><a asp-controller="Reservas" asp-action="Disponibles" class="@(controlador == "Reservas" && accion == "Disponibles" ? "activo" : "")">Disponibilidad</a></li>
+                    <li><a asp-controller="Reservas" asp-action="Index" class="@(controlador == "Reservas" && accion != "Disponibles" ? "activo" : "")">Reservas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="contenedor">
+            @if (TempData["Mensaje"] != null)
+            {
+                <div class="aviso" role="status">
+                    <span>@TempData["Mensaje"]</span>
+                    <button type="button" aria-label="Cerrar">&times;</button>
+                </div>
+            }
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="pie">
+        <div class="contenedor">
+            <span>Casa Olivar &middot; Hotel boutique</span>
+            <span>&copy; 2026</span>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

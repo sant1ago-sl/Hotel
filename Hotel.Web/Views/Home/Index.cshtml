@@ -1,0 +1,98 @@
+﻿@using Hotel.Web.Resultados
+@model List<TipoHabitacion>
+@{
+    ViewData["Title"] = "Inicio";
+    var hoy = DateTime.Today.ToString("yyyy-MM-dd");
+}
+
+<div class="pagina">
+    <section class="portada">
+        <div class="portada-texto">
+            <p class="etiqueta">Hotel boutique &middot; Lima</p>
+            <h1>Un refugio tranquilo para descansar</h1>
+            <p class="intro">Habitaciones amplias, luz natural y un trato cercano. Elija sus fechas y reserve en minutos.</p>
+
+            <form asp-controller="Reservas" asp-action="Disponibles" method="get" class="reserva-rapida">
+                <div class="campos">
+                    <div class="campo">
+                        <label for="ingreso">Ingreso</label>
+                        <input type="date" id="ingreso" name="ingreso" min="@hoy" required />
+                    </div>
+                    <div class="campo">
+                        <label for="salida">Salida</label>
+                        <input type="date" id="salida" name="salida" min="@hoy" required />
+                    </div>
+                </div>
+                <button class="boton">
+                    Ver disponibilidad
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6" /></svg>
+                </button>
+            </form>
+        </div>
+
+        <div class="portada-fotos">
+            <figure class="foto principal">
+                <img src="~/img/portada.jpg" alt="Terraza de madera junto a la piscina con tumbonas" />
+            </figure>
+            <figure class="foto secundaria">
+                <img src="~/img/terraza.jpg" alt="Tumbonas con toallas frente a las montañas" />
+            </figure>
+        </div>
+    </section>
+
+    <section class="seccion">
+        <header class="seccion-cabecera">
+            <div>
+                <p class="etiqueta">Alojamiento</p>
+                <h2>Nuestras habitaciones</h2>
+            </div>
+            <a class="vinculo" asp-controller="Habitaciones" asp-action="Index">Ver todas</a>
+        </header>
+
+        <div class="tipos">
+            @foreach (var t in Model)
+            {
+                <article class="tipo">
+                    <figure class="foto">
+                        <img src="@FotoHabitacion.Ruta(t.Nombre)" alt="Habitación @t.Nombre" loading="lazy" />
+                    </figure>
+                    <h3>@t.Nombre</h3>
+                    <p class="datos">Hasta @t.Capacidad @(t.Capacidad == 1 ? "persona" : "personas")</p>
+                    <p class="precio">@t.PrecioNoche.ToString("C") <span>por noche</span></p>
+                </article>
+            }
+        </div>
+    </section>
+
+    <section class="sobre">
+        <figure class="foto">
+            <img src="~/img/salon.jpg" alt="Salón luminoso con sofás y ventanales" loading="lazy" />
+        </figure>
+        <div>
+            <p class="etiqueta">La casa</p>
+            <h2>Pocas habitaciones, mucho cuidado</h2>
+            <p>Un hotel pequeño pensado para quien prefiere el silencio: espacios con luz natural, ropa de cama de algodón y una recepción que lo atiende a cualquier hora.</p>
+            <ul class="detalles">
+                <li>Desayuno incluido</li>
+                <li>Wi-Fi en todo el hotel</li>
+                <li>Recepción 24 horas</li>
+            </ul>
+            <a class="boton claro" asp-controller="Reservas" asp-action="Disponibles">Consultar disponibilidad</a>
+        </div>
+    </section>
+
+    <section class="contacto">
+        <div>
+            <p class="etiqueta">Ubicación</p>
+            <p>Av. Los Olivos 245<br />Lima, Perú</p>
+        </div>
+        <div>
+            <p class="etiqueta">Reservas</p>
+            <p>+51 1 555 0123<br />Todos los días, 7:00 a 22:00</p>
+        </div>
+        <div>
+            <p class="etiqueta">Horarios</p>
+            <p>Ingreso desde las 14:00<br />Salida hasta las 12:00</p>
+        </div>
+    </section>
+</div>

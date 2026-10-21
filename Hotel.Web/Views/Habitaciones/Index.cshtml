@@ -1,0 +1,69 @@
+@using Hotel.Web.Resultados
+@model IEnumerable<Habitacion>
+@{
+    ViewData["Title"] = "Habitaciones";
+}
+
+<div class="pagina">
+    <header class="cabecera">
+        <div>
+            <p class="etiqueta">Alojamiento</p>
+            <h1>Habitaciones</h1>
+        </div>
+        <a class="boton" asp-action="Create">Nueva habitación</a>
+    </header>
+
+    <form asp-action="Index" method="get" class="filtro">
+        <div class="campos-filtro">
+            <label for="idTipoHabitacion">Tipo</label>
+            <select id="idTipoHabitacion" name="idTipoHabitacion" asp-items="ViewBag.Tipos">
+                <option value="">Todos los tipos</option>
+            </select>
+        </div>
+        <button class="boton claro">Filtrar</button>
+        <a class="vinculo" asp-action="Index">Limpiar</a>
+    </form>
+
+    @if (Model.Any())
+    {
+        <div class="tabla-caja">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Número</th>
+                        <th>Piso</th>
+                        <th>Tipo</th>
+                        <th>Capacidad</th>
+                        <th class="num">Noche</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var h in Model)
+                    {
+                        <tr>
+                            <td><figure class="foto mini"><img src="@FotoHabitacion.Ruta(h.IdTipoHabitacionNavigation.Nombre)" alt="" loading="lazy" /></figure></td>
+                            <td><span class="cifra">@h.Numero</span></td>
+                            <td>@h.Piso</td>
+                            <td>@h.IdTipoHabitacionNavigation.Nombre</td>
+                            <td>@h.IdTipoHabitacionNavigation.Capacidad</td>
+                            <td class="num">@h.IdTipoHabitacionNavigation.PrecioNoche.ToString("C")</td>
+                            <td>
+                                <div class="acciones">
+                                    <a class="vinculo" asp-action="Details" asp-route-id="@h.IdHabitacion">Detalle</a>
+                                    <a class="vinculo" asp-action="Edit" asp-route-id="@h.IdHabitacion">Editar</a>
+                                    <a class="vinculo alerta" asp-action="Delete" asp-route-id="@h.IdHabitacion">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="vacio">No se encontraron habitaciones.</p>
+    }
+</div>

@@ -1,0 +1,31 @@
+@using Hotel.Web.Resultados
+@model Habitacion
+@{
+    ViewData["Title"] = "Detalle de habitación";
+}
+
+<div class="pagina">
+    <header class="cabecera">
+        <div>
+            <p class="etiqueta">@Model.IdTipoHabitacionNavigation.Nombre</p>
+            <h1>Habitación @Model.Numero</h1>
+        </div>
+        <div class="acciones">
+            <a class="vinculo" asp-action="Edit" asp-route-id="@Model.IdHabitacion">Editar</a>
+            <a class="vinculo" asp-action="Index">Volver</a>
+        </div>
+    </header>
+
+    <div class="detalle">
+        <figure class="foto">
+            <img src="@FotoHabitacion.Ruta(Model.IdTipoHabitacionNavigation.Nombre)" alt="Habitación tipo @Model.IdTipoHabitacionNavigation.Nombre" />
+        </figure>
+        <dl class="ficha">
+            <div><dt>Número</dt><dd>@Model.Numero</dd></div>
+            <div><dt>Piso</dt><dd>@Model.Piso</dd></div>
+            <div><dt>Tipo</dt><dd>@Model.IdTipoHabitacionNavigation.Nombre</dd></div>
+            <div><dt>Capacidad</dt><dd>@Model.IdTipoHabitacionNavigation.Capacidad persona(s)</dd></div>
+            <div><dt>Precio por noche</dt><dd><span class="cifra">@Model.IdTipoHabitacionNavigation.PrecioNoche.ToString("C")</span></dd></div>
+        </dl>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+@using Hotel.Web.Resultados
+@model List<HabitacionDisponible>?
+@{
+    ViewData["Title"] = "Disponibilidad";
+    var ingreso = ViewBag.Ingreso as DateOnly?;
+    var salida = ViewBag.Salida as DateOnly?;
+    var hoy = DateTime.Today.ToString("yyyy-MM-dd");
+}
+
+<div class="pagina">
+    <header class="cabecera">
+        <div>
+            <p class="etiqueta">Consulta</p>
+            <h1>Disponibilidad</h1>
+            <p class="intro">Elija las fechas para ver las habitaciones libres y el total estimado de la estancia.</p>
+        </div>
+    </header>
+
+    <form asp-action="Disponibles" method="get" class="filtro">
+        <div class="campos-filtro">
+            <label for="ingreso">Ingreso</label>
+            <input type="date" id="ingreso" name="ingreso" min="@hoy" value="@ingreso?.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="campos-filtro">
+            <label for="salida">Salida</label>
+            <input type="date" id="salida" name="salida" min="@hoy" value="@salida?.ToString("yyyy-MM-dd")" />
+        </div>
+        <button class="boton">
+            Buscar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6" /></svg>
+        </button>
+    </form>
+
+    <div asp-validation-summary="ModelOnly"></div>
+
+    @if (Model != null)
+    {
+        <h2>@Model.Count @(Model.Count == 1 ? "habitación libre" : "habitaciones libres")</h2>
+        <p class="intro" style="color: var(--suave); margin: 0.6rem 0 2rem;">
+            Del @ingreso?.ToString("dd/MM/yyyy") al @salida?.ToString("dd/MM/yyyy").
+        </p>
+
+        @if (Model.Any())
+        {
+            <div class="tabla-caja">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Número</th>
+                            <th>Piso</th>
+                            <th>Tipo</th>
+                            <th>Capacidad</th>
+                            <th class="num">Noche</th>
+                            <th class="num">Noches</th>
+                            <th class="num">Total estimado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model)
+                        {
+                            <tr>
+                                <td><figure class="foto mini"><img src="@FotoHabitacion.Ruta(d.Habitacion.IdTipoHabitacionNavigation.Nombre)" alt="" loading="lazy" /></figure></td>
+                                <td><span class="cifra">@d.Habitacion.Numero</span></td>
+                                <td>@d.Habitacion.Piso</td>
+                                <td>@d.Habitacion.IdTipoHabitacionNavigation.Nombre</td>
+                                <td>@d.Habitacion.IdTipoHabitacionNavigation.Capacidad</td>
+                                <td class="num">@d.Habitacion.IdTipoHabitacionNavigation.PrecioNoche.ToString("C")</td>
+                                <td class="num">@d.Noches</td>
+                                <td class="num"><span class="cifra">@d.Total.ToString("C")</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="botones">
+                <a class="boton claro" asp-action="Create">Registrar una reserva</a>
+            </div>
+        }
+        else
+        {
+            <p class="vacio">No hay habitaciones libres en ese rango de fechas.</p>
+        }
+    }
+</div>

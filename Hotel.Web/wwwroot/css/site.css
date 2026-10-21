@@ -1,0 +1,499 @@
+:root {
+    --crema: #F5F0E8;
+    --papel: #FBF8F2;
+    --oliva: #3B4A3A;
+    --arena: #D9CBB0;
+    --terracota: #B5654A;
+    --suave: rgba(59, 74, 58, 0.68);
+    --linea: rgba(59, 74, 58, 0.2);
+    --titulos: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+    --texto: "Inter", "DM Sans", system-ui, sans-serif;
+    --paso: 300ms ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 16px; }
+
+body {
+    margin: 0;
+    background: var(--crema);
+    color: var(--oliva);
+    font-family: var(--texto);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main { flex: 1; }
+
+h1, h2, h3 {
+    font-family: var(--titulos);
+    font-weight: 300;
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2.5rem, 5.5vw, 4rem); }
+h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+
+p { margin: 0 0 1rem; }
+
+a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--linea);
+    transition: text-decoration-color var(--paso), color var(--paso);
+}
+
+a:hover { text-decoration-color: var(--oliva); }
+
+.contenedor {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.encabezado { border-bottom: 1px solid var(--linea); }
+
+.encabezado .contenedor {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 1.6rem;
+    padding-bottom: 1.4rem;
+    flex-wrap: wrap;
+}
+
+.marca {
+    font-family: var(--titulos);
+    font-size: 1.55rem;
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.menu {
+    display: flex;
+    gap: 2.2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--paso);
+}
+
+.menu a:hover,
+.menu a.activo { border-bottom-color: var(--oliva); }
+
+.pagina { padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(3rem, 7vw, 6rem); }
+
+.etiqueta {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: 1.1rem;
+}
+
+.cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--linea);
+}
+
+.cabecera .intro {
+    max-width: 34ch;
+    color: var(--suave);
+    margin: 0.9rem 0 0;
+}
+
+.aviso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    background: var(--arena);
+    border-left: 2px solid var(--oliva);
+    padding: 0.85rem 1.2rem;
+    margin: 1.8rem 0 0;
+}
+
+.aviso button {
+    background: none;
+    border: 0;
+    color: inherit;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity var(--paso);
+}
+
+.aviso button:hover { opacity: 1; }
+
+.boton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--texto);
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: var(--oliva);
+    color: var(--crema);
+    border: 1px solid var(--oliva);
+    border-radius: 2px;
+    padding: 0.95rem 1.7rem;
+    cursor: pointer;
+    transition: background var(--paso), color var(--paso);
+}
+
+.boton:hover { background: transparent; color: var(--oliva); }
+
+.boton.claro { background: transparent; color: var(--oliva); }
+.boton.claro:hover { background: var(--oliva); color: var(--crema); }
+
+.boton svg, .vinculo svg { width: 16px; height: 16px; flex: none; }
+
+.vinculo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 0.85rem;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--linea);
+    transition: text-decoration-color var(--paso), color var(--paso);
+}
+
+.vinculo:hover { text-decoration-color: currentColor; }
+.vinculo.alerta { color: var(--terracota); }
+
+.acciones { display: flex; gap: 1.4rem; justify-content: flex-end; flex-wrap: wrap; align-items: center; }
+
+.tabla-caja { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; }
+
+th {
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--suave);
+    padding: 0 1rem 0.9rem 0;
+    border-bottom: 1px solid var(--oliva);
+    white-space: nowrap;
+}
+
+td {
+    padding: 1.1rem 1rem 1.1rem 0;
+    border-bottom: 1px solid var(--linea);
+    vertical-align: middle;
+}
+
+th:last-child, td:last-child { padding-right: 0; }
+
+tbody tr { transition: background var(--paso); }
+tbody tr:hover { background: rgba(217, 203, 176, 0.25); }
+
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.cifra { font-family: var(--titulos); font-size: 1.35rem; font-weight: 400; }
+
+.vacio { color: var(--suave); padding: 2.5rem 0; }
+
+.estado {
+    display: inline-block;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid var(--oliva);
+    border-radius: 2px;
+    line-height: 1.6;
+}
+
+.estado.confirmada { background: var(--oliva); color: var(--crema); }
+.estado.pendiente { background: var(--arena); border-color: var(--arena); }
+.estado.cancelada { color: var(--terracota); border-color: var(--terracota); }
+.estado.finalizada { color: var(--suave); border-color: var(--linea); }
+
+.filtro {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--suave);
+    margin-bottom: 0.5rem;
+}
+
+input, select, textarea {
+    width: 100%;
+    font-family: var(--texto);
+    font-size: 0.95rem;
+    color: var(--oliva);
+    background: var(--papel);
+    border: 1px solid rgba(59, 74, 58, 0.35);
+    border-radius: 2px;
+    padding: 0.8rem 0.9rem;
+    transition: border-color var(--paso), background var(--paso);
+}
+
+textarea { resize: vertical; }
+
+input:hover, select:hover, textarea:hover { border-color: var(--oliva); }
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--oliva);
+    background: #fff;
+}
+
+.input-validation-error { border-color: var(--terracota); }
+
+.campo { margin-bottom: 1.8rem; }
+.campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0 2rem; }
+.campos-filtro { flex: 1 1 200px; max-width: 280px; }
+
+.error, .field-validation-error, .validation-summary-errors {
+    display: block;
+    color: var(--terracota);
+    font-size: 0.82rem;
+    margin-top: 0.4rem;
+}
+
+.validation-summary-errors ul { list-style: none; margin: 0 0 1.5rem; padding: 0; }
+
+.formulario { max-width: 560px; }
+
+.botones { display: flex; gap: 1.6rem; align-items: center; margin-top: 2.2rem; }
+
+.ficha { margin: 0; max-width: 520px; }
+
+.ficha div {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--linea);
+}
+
+.ficha dt {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--suave);
+    padding-top: 0.3rem;
+}
+
+.ficha dd { margin: 0; }
+
+.confirmar { max-width: 520px; }
+.confirmar p { font-size: 1.05rem; }
+
+.portada {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+}
+
+.portada-texto { padding-top: clamp(1rem, 5vw, 4.5rem); }
+
+.portada-texto h1 { margin-bottom: 1.6rem; }
+
+.portada-texto .intro { max-width: 36ch; color: var(--suave); margin-bottom: 3rem; }
+
+.reserva-rapida {
+    background: var(--papel);
+    border: 1px solid var(--linea);
+    border-radius: 2px;
+    padding: 1.8rem 1.8rem 2rem;
+    max-width: 440px;
+    margin-left: clamp(0rem, 3vw, 2.5rem);
+}
+
+.reserva-rapida .campos { grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+.reserva-rapida .campo { margin-bottom: 1.4rem; }
+
+.foto {
+    overflow: hidden;
+    margin: 0;
+    background: var(--arena);
+}
+
+.foto img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--paso), opacity var(--paso);
+}
+
+.foto:hover img { transform: scale(1.03); }
+
+.portada-fotos { position: relative; }
+.portada-fotos .principal { aspect-ratio: 4 / 5; }
+.portada-fotos .principal img { object-position: 38% center; }
+
+.portada-fotos .secundaria {
+    width: 58%;
+    aspect-ratio: 1 / 1;
+    margin: -4.5rem 0 0 -14%;
+    position: relative;
+    border: 6px solid var(--crema);
+}
+
+.portada-fotos .secundaria img { object-position: 22% center; }
+
+.portada-fotos figcaption {
+    font-size: 0.78rem;
+    color: var(--suave);
+    margin: 0.9rem 0 0 -14%;
+}
+
+.seccion { margin-top: clamp(4rem, 9vw, 8rem); }
+
+.seccion-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.tipos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.8rem;
+    align-items: start;
+}
+
+.tipo:nth-child(2) { margin-top: 2.5rem; }
+.tipo:nth-child(4) { margin-top: 1.4rem; }
+
+.tipo .foto { aspect-ratio: 4 / 5; margin-bottom: 1.1rem; }
+.tipo h3 { font-size: 1.7rem; margin-bottom: 0.3rem; }
+.tipo .datos { color: var(--suave); font-size: 0.85rem; margin: 0 0 0.6rem; }
+.tipo .precio { font-family: var(--titulos); font-size: 1.35rem; margin: 0; }
+.tipo .precio span { font-family: var(--texto); font-size: 0.78rem; color: var(--suave); }
+
+.sobre {
+    margin-top: clamp(4rem, 9vw, 8rem);
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+}
+
+.sobre .foto { aspect-ratio: 5 / 4; }
+.sobre h2 { margin-bottom: 1.4rem; }
+.sobre p:not(.etiqueta) { max-width: 40ch; color: var(--suave); }
+
+.detalles {
+    list-style: none;
+    margin: 1.8rem 0 2.2rem;
+    padding: 0;
+    border-top: 1px solid var(--linea);
+}
+
+.detalles li { padding: 0.7rem 0; border-bottom: 1px solid var(--linea); }
+
+.contacto {
+    margin-top: clamp(4rem, 9vw, 8rem);
+    padding-top: 2rem;
+    border-top: 1px solid var(--oliva);
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr 1fr;
+    gap: 2rem;
+}
+
+.contacto p:not(.etiqueta) { margin: 0; }
+
+.mini {
+    width: 76px;
+    height: 52px;
+    margin: 0;
+}
+
+.detalle {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+}
+
+.detalle .foto { aspect-ratio: 4 / 5; }
+.detalle .ficha { max-width: none; margin-top: clamp(0rem, 4vw, 3rem); }
+
+.pie { border-top: 1px solid var(--linea); }
+
+.pie .contenedor {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 1.6rem;
+    padding-bottom: 1.8rem;
+    font-size: 0.78rem;
+    color: var(--suave);
+}
+
+@media (max-width: 820px) {
+    .portada { grid-template-columns: 1fr; }
+    .portada-fotos .principal { aspect-ratio: 4 / 3; }
+    .portada-fotos .secundaria { margin-left: 0; width: 48%; margin-left: 8%; }
+    .portada-fotos figcaption { margin-left: 8%; }
+    .menu { gap: 1.4rem; }
+    .ficha div { grid-template-columns: 1fr; gap: 0; }
+    .tipos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tipo:nth-child(2), .tipo:nth-child(4) { margin-top: 0; }
+    .sobre, .contacto { grid-template-columns: 1fr; }
+    .detalle { grid-template-columns: 1fr; }
+    .detalle .foto { aspect-ratio: 4 / 3; }
+}

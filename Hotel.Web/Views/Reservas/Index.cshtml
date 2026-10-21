@@ -1,0 +1,63 @@
+@model IEnumerable<Reserva>
+@{
+    ViewData["Title"] = "Reservas";
+}
+
+<div class="pagina">
+    <header class="cabecera">
+        <div>
+            <p class="etiqueta">Registro</p>
+            <h1>Reservas</h1>
+        </div>
+        <a class="boton" asp-action="Create">Nueva reserva</a>
+    </header>
+
+    @if (Model.Any())
+    {
+        <div class="tabla-caja">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Huésped</th>
+                        <th>Habitación</th>
+                        <th>Ingreso</th>
+                        <th>Salida</th>
+                        <th>Estado</th>
+                        <th class="num">Total</th>
+                        <th>Observaciones</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model)
+                    {
+                        var noches = r.FechaSalida.DayNumber - r.FechaIngreso.DayNumber;
+                        var total = noches * r.IdHabitacionNavigation.IdTipoHabitacionNavigation.PrecioNoche;
+                        <tr>
+                            <td>@r.IdHuespedNavigation.Apellidos, @r.IdHuespedNavigation.Nombres</td>
+                            <td><span class="cifra">@r.IdHabitacionNavigation.Numero</span></td>
+                            <td>@r.FechaIngreso.ToString("dd/MM/yyyy")</td>
+                            <td>@r.FechaSalida.ToString("dd/MM/yyyy")</td>
+                            <td><span class="estado @r.Estado.ToLower()">@r.Estado</span></td>
+                            <td class="num">@total.ToString("C")</td>
+                            <td>@r.Observaciones</td>
+                            <td>
+                                @if (r.Estado == "Pendiente" || r.Estado == "Confirmada")
+                                {
+                                    <form asp-action="Cancelar" asp-route-id="@r.IdReserva" method="post"
+                                          onsubmit="return confirm('¿Cancelar esta reserva?');">
+                                        <button class="vinculo alerta">Cancelar</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="vacio">No hay reservas registradas.</p>
+    }
+</div>

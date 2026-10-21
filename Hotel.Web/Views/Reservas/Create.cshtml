@@ -1,0 +1,57 @@
+@model Reserva
+@{
+    ViewData["Title"] = "Nueva reserva";
+}
+
+<div class="pagina">
+    <header class="cabecera">
+        <div>
+            <p class="etiqueta">Reservas</p>
+            <h1>Nueva reserva</h1>
+            <p class="intro">Queda registrada como pendiente hasta que se confirme.</p>
+        </div>
+    </header>
+
+    <form asp-action="Create" class="formulario">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="campo">
+            <label asp-for="IdHuesped">Huésped</label>
+            <select asp-for="IdHuesped" asp-items="ViewBag.Huespedes">
+                <option value="0">Seleccione un huésped</option>
+            </select>
+            <span asp-validation-for="IdHuesped"></span>
+        </div>
+        <div class="campo">
+            <label asp-for="IdHabitacion">Habitación</label>
+            <select asp-for="IdHabitacion" asp-items="ViewBag.Habitaciones">
+                <option value="0">Seleccione una habitación</option>
+            </select>
+            <span asp-validation-for="IdHabitacion"></span>
+        </div>
+        <div class="campos">
+            <div class="campo">
+                <label asp-for="FechaIngreso">Ingreso</label>
+                <input asp-for="FechaIngreso" />
+                <span asp-validation-for="FechaIngreso"></span>
+            </div>
+            <div class="campo">
+                <label asp-for="FechaSalida">Salida</label>
+                <input asp-for="FechaSalida" />
+                <span asp-validation-for="FechaSalida"></span>
+            </div>
+        </div>
+        <div class="campo">
+            <label asp-for="Observaciones">Observaciones</label>
+            <textarea asp-for="Observaciones" rows="3" maxlength="200"></textarea>
+            <span asp-validation-for="Observaciones"></span>
+        </div>
+        <div class="botones">
+            <button class="boton">Guardar reserva</button>
+            <a class="vinculo" asp-action="Index">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
